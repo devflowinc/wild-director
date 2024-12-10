@@ -88,8 +88,11 @@ func main() {
 		}
 
 		url := fmt.Sprintf("https://api.trieve.ai/public_page/%s", uuid)
-		fmt.Printf("http: remapping %q -> %q\n", r.URL.String(), url)
+		if r.URL.Path != "/" {
+			url = fmt.Sprintf("https://api.trieve.ai%s", r.URL.Path)
+		}
 
+		fmt.Printf("http: remapping %q -> %q\n", r.URL.String(), url)
 		w2, err := http.Get(url)
 		if err != nil {
 			panic(err)
@@ -100,9 +103,7 @@ func main() {
 				w.Header().Set(key, val)
 			}
 		}
-
 		w.WriteHeader(w2.StatusCode)
-
 		io.Copy(w, w2.Body)
 	})
 
