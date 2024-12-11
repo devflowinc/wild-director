@@ -7,6 +7,6 @@ binary:
 
 .PHONY: deploy
 deploy: binary
-	ssh root@5.78.103.252 "systemctl stop wild-director"
-	scp wild-director root@5.78.103.252:/usr/bin/wild-director
-	ssh root@5.78.103.252 "systemctl start wild-director"
+	ssh root@demo.trytrieve.com "systemctl stop wild-director"
+	scp wild-director root@demo.trytrieve.com:/usr/bin/wild-director
+	ssh root@demo.trytrieve.com "systemctl start wild-director"
